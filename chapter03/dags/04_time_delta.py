@@ -9,7 +9,7 @@ from airflow.operators.python import PythonOperator
 dag = DAG(
     dag_id="04_time_delta",
     # schedule_interval="@daily",
-    schedule_interval=dt.timedelta(days=3),
+    schedule=dt.timedelta(days=3),
     start_date=dt.datetime(year=2019, month=1, day=1),
     end_date=dt.datetime(year=2019, month=1, day=5),
 )
