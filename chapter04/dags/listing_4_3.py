@@ -8,11 +8,12 @@ dag = DAG(
     schedule_interval="@daily",
 )
 
-
 def _print_context(**kwargs):
     print(kwargs)
-
 
 print_context = PythonOperator(
     task_id="print_context", python_callable=_print_context, dag=dag
 )
+
+
+# Print All context variables for the given execution date
