@@ -22,3 +22,6 @@ def _get_data(execution_date):
 
 
 get_data = PythonOperator(task_id="get_data", python_callable=_get_data, dag=dag)
+
+
+# Downloading Wikipedia pageviews with the PythonOperator

@@ -24,6 +24,7 @@ def _get_data(year, month, day, hour, output_path, **_):
 get_data = PythonOperator(
     task_id="get_data",
     python_callable=_get_data,
+    #  Providing templated strings as input for the callable function inside the DAG
     op_kwargs={
         "year": "{{ execution_date.year }}",
         "month": "{{ execution_date.month }}",
@@ -39,11 +40,13 @@ extract_gz = BashOperator(
 )
 
 
+
 def _fetch_pageviews(pagenames):
     result = dict.fromkeys(pagenames, 0)
     with open("/tmp/wikipageviews", "r") as f:
         for line in f:
             domain_code, page_title, view_counts, _ = line.split(" ")
+# una mezcla de SQL y Python
             if domain_code == "en" and page_title in pagenames:
                 result[page_title] = view_counts
 
