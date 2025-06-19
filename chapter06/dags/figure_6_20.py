@@ -6,7 +6,7 @@ from airflow.operators.dummy import DummyOperator
 from airflow.sensors.external_task import ExternalTaskSensor
 
 dag1 = DAG(
-    dag_id="figure_6_20_dag_1",
+    dag_id="ingest_supermarket_data",
     start_date=airflow.utils.dates.days_ago(3),
     schedule_interval="0 16 * * *",
 )
@@ -22,7 +22,7 @@ DummyOperator(task_id="copy_to_raw", dag=dag1) >> DummyOperator(
 
 wait = ExternalTaskSensor(
     task_id="wait_for_process_supermarket",
-    external_dag_id="figure_6_20_dag_1",
+    external_dag_id="ingest_supermarket_data",
     external_task_id="process_supermarket",
     execution_delta=datetime.timedelta(hours=6),
     dag=dag2,

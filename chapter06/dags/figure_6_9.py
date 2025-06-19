@@ -31,6 +31,9 @@ for supermarket_id in range(1, 5):
         mode="reschedule",
         dag=dag,
     )
+
+# Sensors with mode="reschedule" release their slot after poking, allowing other tasks 
+# to run.
     copy = DummyOperator(task_id=f"copy_to_raw_supermarket_{supermarket_id}", dag=dag)
     process = DummyOperator(task_id=f"process_supermarket_{supermarket_id}", dag=dag)
     wait >> copy >> process >> create_metrics

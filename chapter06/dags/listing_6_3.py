@@ -8,5 +8,6 @@ dag = DAG(
     schedule_interval="@daily",
     concurrency=50,
 )
+# This DAG allows 50  concurrently running tasks.
 
 DummyOperator(task_id="dummy", dag=dag)
